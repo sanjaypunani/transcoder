@@ -1,0 +1,33 @@
+{
+  "name": "transcodingworker",
+  "version": "1.0.0",
+  "description": "Transcoding Worker for India OTT",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/askvarun/transcodingWorker.git"
+  },
+  "author": "Varun Gupta",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/askvarun/transcodingWorker/issues"
+  },
+  "homepage": "https://github.com/askvarun/transcodingWorker#readme",
+  "dependencies": {
+    "async": "^3.2.0",
+    "axios": "^0.21.1",
+    "console-stamp": "^0.2.9",
+    "ffprobe": "^1.1.2",
+    "ffprobe-static": "^3.1.0",
+    "get-folder-size": "^2.0.1",
+    "lodash": "^4.17.20",
+    "mysql": "^2.18.1",
+    "mysql-async-simple": "^1.0.3",
+    "node-fetch": "^2.6.1",
+    "request": "^2.88.2"
+  }
+}
