@@ -21,9 +21,10 @@ cd $folder
 echo "DONE"
 echo "Transfer Strated"
 echo "$filebase"
+echo "$newfile"
 
 # cp -r $filebase ~/Projects/gnx/vidclick/server/public/upload/videos/video/$filebase
-sshpass -p "Fh23?^Gwe24"  scp -P 5726 -i /home/i2k2admin/aapadmcoder/clickvid -r $filebase root@103.117.156.144:/var/www/html/storage
+/opt/homebrew/bin/sshpass -p "Fh23?^Gwe24"  scp -P 5726 -i /Users/sanjaypunani/Desktop/transcoder/transcoder/clickvid -r $filebase root@103.117.156.144:/var/www/html/storage
 
 #scp  -P5726 /home/i2k2admin/trancoding/clickvid -i -r $filebase root@103.117.156.144:/var/www/html/storage
 #scp -i ~/Data/key/clickvid -r $filebase ubuntu@135.181.251.193:/var/www/html/storage

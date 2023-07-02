@@ -20,4 +20,4 @@ echo "DONE"
 echo "Transfer Strated"
 echo "$filebase"
 
-rsync -arv   -e 'ssh -p 5726' /home/i2k2admin/trancoding/clickvid $filebase root@103.117.156.144:/var/www/html/storage
+rsync -arv   -e 'ssh -p 5726' /Users/sanjaypunani/Desktop/transcoder/transcoder/clickvid $filebase root@103.117.156.144:/var/www/html/storage

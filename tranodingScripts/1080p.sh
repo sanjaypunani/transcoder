@@ -8,7 +8,8 @@
 # ffmpeg should have binary files in this location
 #FFMPEG=/usr/local/bin/
 #FFMPEG=/snap/bin
-FFMPEG=/usr/bin/
+# FFMPEG=/usr/bin/
+FFMPEG=/opt/homebrew/bin/
 
 startTime=$(date)
 file=$1
