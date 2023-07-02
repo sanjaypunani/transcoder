@@ -34,5 +34,5 @@ echo "$newfile"
 
 #aws s3 cp --recursive $filebase/ s3://indiaotthls/$filebase --region ap-south-1 --acl public-read
 
-rm -rf $filebase
-rm $newfile
+# rm -rf $filebase
+# rm $newfile
