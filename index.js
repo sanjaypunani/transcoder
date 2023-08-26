@@ -51,20 +51,33 @@ async function startWorker() {
 
   // Final decision making if we need to run the worker or not
   if (objs.length) {
+    console.log("objs: ", objs);
     console.log("Needs to Transcode ", objs.length, " Files");
     let idx = 0;
     let asyncLoop = async (arr) => {
       console.log("Running for ", idx);
-      fun.transJob(arr[idx], async () => {
-        idx++;
-        if (idx < arr.length) {
-          asyncLoop(arr);
-        } else {
-          console.log("Nothing to be encoded");
-          await sleep(15000);
-          startWorker();
-        }
-      });
+
+      fun.transJob(arr[idx]);
+
+      idx++;
+      if (idx < arr.length) {
+        asyncLoop(arr);
+      } else {
+        console.log("Nothing to be encoded");
+        await sleep(15000);
+        startWorker();
+      }
+
+      // fun.transJob(arr[idx], async () => {
+      //   idx++;
+      //   if (idx < arr.length) {
+      //     asyncLoop(arr);
+      //   } else {
+      //     console.log("Nothing to be encoded");
+      //     await sleep(15000);
+      //     startWorker();
+      //   }
+      // });
     };
     asyncLoop(objs);
   } else {

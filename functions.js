@@ -56,7 +56,7 @@ function transJob(dbItem, cb) {
     console.log("Worker recived dbObject : ", fileurl);
 
     console.log("fileurl : ", fileurl);
-    updateStatus(dbItem, "Transcoding", {});
+    // updateStatus(dbItem, "Transcoding", {});
     downloadFile(fileurl, destination, (m) => {
       if (m) {
         console.log("m is :", m);
