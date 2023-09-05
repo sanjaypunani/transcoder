@@ -1,4 +1,4 @@
-export const demoTranscodes = [
+const demoTranscodes = [
   {
     video_id: 81,
     title: "Transcode 3",
@@ -125,3 +125,7 @@ export const demoTranscodes = [
     parent_video: null,
   },
 ];
+
+module.exports = {
+  demoTranscodes,
+};

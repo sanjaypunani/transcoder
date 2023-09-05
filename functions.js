@@ -56,7 +56,8 @@ function transJob(dbItem, cb) {
     console.log("Worker recived dbObject : ", fileurl);
 
     console.log("fileurl : ", fileurl);
-    // updateStatus(dbItem, "Transcoding", {});
+    updateTranscodingStatus(dbItem);
+    updateStatus(dbItem, "Transcoding", {});
     downloadFile(fileurl, destination, (m) => {
       if (m) {
         console.log("m is :", m);
@@ -104,7 +105,7 @@ async function sqlComplete(dbItem, cb) {
 
   try {
     let sql =
-      "Update videos set completed = 1, status = 1  where custom_url = '" +
+      "Update videos set completed = 1, transcoding = 0, status = 1  where custom_url = '" +
       dbItem.custom_url +
       "'";
     const rows = await db.query(connection, sql);
@@ -115,6 +116,33 @@ async function sqlComplete(dbItem, cb) {
     // handle exception
     console.log("Error happened ", e);
     typeof cb === "function" && cb();
+  } finally {
+    await db.close(connection);
+  }
+}
+
+async function updateTranscodingStatus(dbItem) {
+  const connection = mysql.createConnection(config.mysql);
+
+  const db = makeDb();
+
+  console.log("DB Made");
+
+  await db.connect(connection);
+
+  console.log("DB connected");
+
+  try {
+    let sql =
+      `Update videos set transcoding = 1  where custom_url = '` +
+      dbItem.custom_url +
+      "'";
+    const rows = await db.query(connection, sql);
+    console.log("Transcoding status Updates are updated ");
+    // return rows;
+  } catch (e) {
+    // handle exception
+    console.log("Error happened ", e);
   } finally {
     await db.close(connection);
   }

@@ -10,6 +10,7 @@ require("console-stamp")(console, "[HH:MM:ss.l]");
 const config = require("./config.js");
 
 let fun = require("./functions");
+const { demoTranscodes } = require("./const.js");
 
 console.log("Worker started : ", config.transApi);
 
@@ -35,6 +36,7 @@ async function startWorker() {
   let url = config.transApi;
   // let jsn = await getFetch(url)
   let jsn = await sqlWorker();
+  // let jsn = demoTranscodes;
 
   console.log(jsn);
 
@@ -44,47 +46,59 @@ async function startWorker() {
     // if (obj.status === "Uploaded") {
     //     objs.push(obj)
     // }
-    if (obj.completed === 0) {
+    if (obj.completed === 0 && obj.transcoding !== 1) {
       objs.push(obj);
     }
   });
 
-  // Final decision making if we need to run the worker or not
-  if (objs.length) {
-    console.log("objs: ", objs);
-    console.log("Needs to Transcode ", objs.length, " Files");
-    let idx = 0;
-    let asyncLoop = async (arr) => {
-      console.log("Running for ", idx);
+  console.log("got videos for transcode is that", objs?.length);
 
-      fun.transJob(arr[idx]);
-
-      idx++;
-      if (idx < arr.length) {
-        asyncLoop(arr);
-      } else {
-        console.log("Nothing to be encoded");
-        await sleep(15000);
-        startWorker();
-      }
-
-      // fun.transJob(arr[idx], async () => {
-      //   idx++;
-      //   if (idx < arr.length) {
-      //     asyncLoop(arr);
-      //   } else {
-      //     console.log("Nothing to be encoded");
-      //     await sleep(15000);
-      //     startWorker();
-      //   }
-      // });
-    };
-    asyncLoop(objs);
-  } else {
-    console.log("Nothing waiting to be Transcoded");
-    await sleep(15000);
-    startWorker();
+  for (let i = 0; i < objs?.length; i++) {
+    console.log("starting video to transcode ===", objs[i]?.custom_url);
+    fun.transJob(objs[i]);
   }
+
+  await sleep(15000);
+  startWorker();
+
+  // Final decision making if we need to run the worker or not
+  // if (objs.length) {
+  //   console.log("objs: ", objs);
+  //   console.log("Needs to Transcode ", objs.length, " Files");
+  //   let idx = 0;
+  //   let asyncLoop = async (arr) => {
+  //     console.log("Running for ", idx);
+
+  //     fun.transJob(arr[idx]);
+
+  //     idx++;
+  //     if (idx < arr.length) {
+  //       asyncLoop(arr);
+  //     } else {
+  //       console.log("Nothing to be encoded");
+  //       // await sleep(15000);
+  //       // startWorker();
+  //     }
+  //     await sleep(15000);
+  //     startWorker();
+
+  //     // fun.transJob(arr[idx], async () => {
+  //     //   idx++;
+  //     //   if (idx < arr.length) {
+  //     //     asyncLoop(arr);
+  //     //   } else {
+  //     //     console.log("Nothing to be encoded");
+  //     //     await sleep(15000);
+  //     //     startWorker();
+  //     //   }
+  //     // });
+  //   };
+  //   asyncLoop(objs);
+  // } else {
+  //   console.log("Nothing waiting to be Transcoded");
+  //   await sleep(15000);
+  //   startWorker();
+  // }
   // setTimeout(startWorker, 15000);
 }
 
