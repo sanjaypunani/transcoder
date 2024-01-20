@@ -38,8 +38,6 @@ async function startWorker() {
   let jsn = await sqlWorker();
   // let jsn = demoTranscodes;
 
-  console.log(jsn);
-
   // find if something is requires transcoding or not
   let objs = [];
   jsn.forEach((obj) => {
@@ -51,10 +49,7 @@ async function startWorker() {
     }
   });
 
-  console.log("got videos for transcode is that", objs?.length);
-
   for (let i = 0; i < objs?.length; i++) {
-    console.log("starting video to transcode ===", objs[i]?.custom_url);
     fun.transJob(objs[i]);
   }
 
@@ -119,7 +114,6 @@ async function sqlWorker() {
   try {
     let sql = "SELECT * FROM videos WHERE completed = 0 AND custom_url != '' ";
     const rows = await db.query(connection, sql);
-    console.log("Rows are : ", rows);
     return rows;
   } catch (e) {
     // handle exception

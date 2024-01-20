@@ -16,8 +16,8 @@ module.exports = {
   transApi: apiDomai + "media-files",
 
   mysql: {
-    host: "localhost",
-    user: "root",
+    host: "49.50.76.77",
+    user: "inqtube",
     password: "password",
     database: "vid129july",
     port: "3306",
@@ -26,7 +26,7 @@ module.exports = {
   // https://click.html5.run/upload/videos/video/1619254409143_g_.webm
   // fileDownloadPrefix: "/Users/varun/Projects/gnx/vidclick/server/public",
   //   fileDownloadPrefix: "https://upgov.inqtube.com",
-  fileDownloadPrefix: "http://localhost:3000",
+  fileDownloadPrefix: "https://inqtube.com",
 
   /// Transcoding Configs
   trans: [
