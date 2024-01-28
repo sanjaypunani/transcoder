@@ -70,9 +70,26 @@ function transJob(dbItem, cb) {
         // console.log("M is : ", m)
         // endTask(dbItem, resp, cb)
         sqlComplete(dbItem, cb);
+        deleteFileFromMainServer(dbItem);
       });
     });
   }
+}
+
+function deleteFileFromMainServer(dbItem) {
+  const requestOptions = {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ video_id: dbItem.custom_url }),
+  };
+  const deleteFileApi =
+    config.fileDownloadPrefix + "/api/video/remove-video-file";
+  console.log("deleteFileApi: ", deleteFileApi);
+  fetch(deleteFileApi, requestOptions)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Server Response On Remove File:", data);
+    });
 }
 
 function endTask(dbItem, resp, cb) {
@@ -109,6 +126,7 @@ async function sqlComplete(dbItem, cb) {
       dbItem.custom_url +
       "'";
     const rows = await db.query(connection, sql);
+
     console.log("Rows are updated ");
     // return rows;
     typeof cb === "function" && cb();
